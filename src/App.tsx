@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import React from "react";
+import { BookTrip, MapDisplay, NavBar, TripInfo, UserList } from "./components";
+import { Router, Switch, Route, Link, Redirect } from "react-router-dom";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      className={`wrapper w-full min-h-screen bg-gray-200 flex items-center justify-center`}
+    >
+      <div className={`body max-w-xxl m-0 m-auto`}>
+        <div className="flex w-[4%]">
+          <NavBar />
+        </div>
+
+        <div className="flex w-[96%] relative">
+          <MapDisplay />
+
+          <Switch>
+            <Route path={"/"} exact component={UserList} />
+            <Route path={"/trip"} component={TripInfo} />
+            <Route path={"/new-booking"} component={BookTrip} />
+          </Switch>
+        </div>
+      </div>
     </div>
   );
 }
