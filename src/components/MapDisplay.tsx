@@ -1,24 +1,19 @@
-import React, {
-  useRef,
-  useState,
-  useCallback,
-  useContext,
-  useEffect,
-  useLayoutEffect,
-} from "react";
+import React, { useState, useCallback, useContext, useEffect } from "react";
 import Map, {
   GeoJSONSource,
   Layer,
-  LngLat,
   MapRef,
   Marker,
   MarkerDragEvent,
   Source,
 } from "react-map-gl";
-import { MapboxPin } from "./index";
-import { AppContext } from "../context";
-import { tempData } from "./tempData";
+
+//Components
 import { EndPoint, StartPoint } from "../assets";
+import { MapboxPin } from "./index";
+
+//Misc
+import { AppContext } from "../context";
 import { getTurfEnvelope } from "../utils";
 
 const layerStyle = {
@@ -39,14 +34,11 @@ export const MapDisplay = () => {
   let { state, updatePoint } = useContext(AppContext);
   const mapRef = React.useRef<MapRef | null>(null);
 
-  const [marker, setMarker] = useState(state.mapCenter);
   const [initialState, setInitialState] = useState({
     latitude: 31.5133,
     longitude: 74.1232,
     zoom: 5,
   });
-  const [routePath, setRoutePath] = useState([]);
-  const [events, logEvents] = useState<Record<string, LngLat>>({});
 
   useEffect(() => {
     if (state.mapCenter.latitude !== initialState.latitude) {
@@ -66,25 +58,9 @@ export const MapDisplay = () => {
     updatePoint({ id: key, data: { lat: point.lat, lng: point.lng } });
   }, []);
 
-  const handleOnLoad = React.useCallback(() => {
-    // mapRef.current?.easeTo({
-    //   padding: { left: 200, top: 100, bottom: 100, right: 0 },
-    // });
-    return;
-    //
-    // mapRef.current?.fitBounds(
-    //   [
-    //     [-81.724659, 38.92801],
-    //     [-81.634879, 38.35995],
-    //   ],
-    //   { padding: 40, duration: 1000 }
-    // );
-  }, []);
-
   useEffect(() => {
     if (state.markers.length) {
       let storeMarkers = state.markers;
-
       const edgePoints = storeMarkers
         .filter(
           (data: { lat: any; lng: any; key: any; type: string }) =>
@@ -160,7 +136,6 @@ export const MapDisplay = () => {
         mapboxAccessToken={process.env.REACT_APP_MAP_KEY}
         minZoom={5}
         pitch={10}
-        onLoad={handleOnLoad}
         style={{ width: "100%", height: "100%" }}
         mapStyle="mapbox://styles/mapbox/dark-v9"
       >
