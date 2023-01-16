@@ -1,27 +1,53 @@
-import React from "react";
-import { BookTrip, MapDisplay, NavBar, TripInfo, UserList } from "./components";
-import { Router, Switch, Route, Link, Redirect } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Provider } from "./context";
+import { MapProvider } from "react-map-gl";
+import { AuthLayout } from "./components/";
+import { onError } from "@apollo/client/link/error";
+import {
+  ApolloClient,
+  ApolloProvider,
+  from,
+  HttpLink,
+  InMemoryCache,
+} from "@apollo/client";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.forEach(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+      )
+    );
+  if (networkError) {
+    toast.error(`[Network error]: ${networkError}`);
+  }
+});
+
+const link = from([errorLink, new HttpLink({ uri: "http://localhost:4000/" })]);
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link: link,
+});
+
 function App() {
   return (
-    <div
-      className={`wrapper w-full min-h-screen bg-gray-200 flex items-center justify-center`}
-    >
-      <div className={`body max-w-xxl m-0 m-auto`}>
-        <div className="flex w-[4%]">
-          <NavBar />
-        </div>
-
-        <div className="flex w-[96%] relative">
-          <MapDisplay />
-
-          <Switch>
-            <Route path={"/"} exact component={UserList} />
-            <Route path={"/trip"} component={TripInfo} />
-            <Route path={"/new-booking"} component={BookTrip} />
-          </Switch>
-        </div>
-      </div>
-    </div>
+    <ApolloProvider client={client}>
+      <Provider>
+        <MapProvider>
+          <div
+            className={`wrapper w-full min-h-screen bg-gray-200 flex items-center justify-center`}
+          >
+            <div className={`body max-w-xxl m-0 m-auto`}>
+              <AuthLayout />
+            </div>
+          </div>
+        </MapProvider>
+      </Provider>
+      <ToastContainer />
+    </ApolloProvider>
   );
 }
 

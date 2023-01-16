@@ -14,9 +14,11 @@ module.exports = {
         footerBG: "#191046",
         darkWhite: "#a0a0a0",
         tealGreen: "#05c46b",
+        loginInput: "#2e3131",
       },
       fontFamily: {
         nunito: ["Nunito", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
       },
     },
     screens: {

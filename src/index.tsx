@@ -7,6 +7,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
+import { HelmetProvider } from "react-helmet-async";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -14,9 +15,13 @@ const root = ReactDOM.createRoot(
 let history = createBrowserHistory();
 
 root.render(
-  <Router history={history}>
-    <App />
-  </Router>
+  <React.Suspense fallback={<span>...Loading...</span>}>
+    <HelmetProvider>
+      <Router history={history}>
+        <App />
+      </Router>
+    </HelmetProvider>
+  </React.Suspense>
 );
 
 // If you want to start measuring performance in your app, pass a function
