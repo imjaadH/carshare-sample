@@ -1,20 +1,11 @@
-import * as Icon from "react-feather";
 import React from "react";
 import { useQuery } from "@apollo/client";
+import * as Icon from "react-feather";
+import { isEmpty } from "ramda";
+
+//Misc
 import { GET_TRIP_DETAILS } from "../../graphql/queries.graphql";
 import { UserCardLoadingView } from "../index";
-import { isEmpty } from "ramda";
-import { format } from "date-fns";
-
-type User = {
-  firstName: string;
-  lastName: string;
-  contact: string;
-  tripsTaken: number;
-  photoUrl: string;
-  avgRating: string;
-  hourlyRate: number;
-};
 
 interface IProps {
   onBookRoute?: () => void;

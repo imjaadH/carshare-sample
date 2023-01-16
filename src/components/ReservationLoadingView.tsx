@@ -1,4 +1,3 @@
-import * as Icon from "react-feather";
 import React from "react";
 
 export const ReservationLoadingView = () => {

@@ -1,8 +1,8 @@
-import * as Icon from "react-feather";
 import React from "react";
-import { Reservation } from "../../graphql/__generated__/graphql";
 import { isNil } from "ramda";
 import { format } from "date-fns";
+import * as Icon from "react-feather";
+import { Reservation } from "../../graphql/__generated__/graphql";
 import { formatTripStatus } from "../../utils";
 
 type PickedReservation = Pick<

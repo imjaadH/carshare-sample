@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { Milestone } from "../../assets";
 import { format } from "date-fns";
 import * as Icon from "react-feather";
+import { useHistory } from "react-router-dom";
+import { Milestone } from "../../assets";
 import { Trip } from "../../graphql/__generated__/graphql";
 import { AppContext } from "../../context";
-import { useHistory } from "react-router-dom";
 
 type TripData = Pick<
   Trip,
