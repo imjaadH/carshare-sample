@@ -22,7 +22,6 @@ const reducer = (state: any, action: { type: string; payload: any }) => {
       return { ...state, authenticated: true, user: decodedValue.data };
 
     case actionTypes.SET_MAP_CENTER:
-      console.log(action.payload);
       return {
         ...state,
         mapCenter: {

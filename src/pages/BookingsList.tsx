@@ -12,7 +12,6 @@ import { AppContext } from "../context";
 export const BookingsList = () => {
   let history = useHistory();
   let { state } = useContext(AppContext);
-  console.log(state);
   const { data, loading, error } = useQuery(GET_USER_RESERVATIONS, {
     variables: {
       userId: state.user,

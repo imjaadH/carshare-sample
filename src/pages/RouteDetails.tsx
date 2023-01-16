@@ -27,10 +27,6 @@ export const RouteDetails = ({
     },
   });
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   if (loading) return <TripInfoLoadingView />;
   if (data?.getTripReservations) {
     return (
